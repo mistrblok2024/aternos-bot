@@ -1,20 +1,20 @@
-name: Aternos AFK Bot
+const bedrock = require('bedrock-protocol');
 
-on:
-  push:
-  workflow_dispatch:
-  schedule:
-    - cron: '*/30 * * * *'
+const client = bedrock.createClient({
+  host: 'MistrBlok2024-fPaG.aternos.me',
+  port: 55411,
+  username: 'AternosBot',
+  offline: true
+});
 
-jobs:
-  run-bot:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+client.on('connect', () => {
+  console.log('تم الاتصال بسيرفر ماين كرافت بنجاح!');
+});
 
-      - name: Install Dependencies
-        run: npm install
+client.on('error', (err) => {
+  console.log('خطأ في الاتصال: ', err);
+});
 
-      - name: Run Bot
-        run: timeout 25m node bot.js || true
+client.on('close', () => {
+  console.log('انقطع الاتصال بالسيرفر.');
+});
