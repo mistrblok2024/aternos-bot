@@ -10,16 +10,11 @@ jobs:
   run-bot:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Get Repository Files
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Install Dependencies
+      - name: Install Dependencies Directly
         run: npm install
 
-      - name: Run Bot
+      - name: Execute Bot
         run: timeout 25m node bot.js || true
